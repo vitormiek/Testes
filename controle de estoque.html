@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Estoque</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f3f6f9;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #4a4a4a;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-primary {
+            background-color: #007bff;
+        }
+
+        .button-secondary {
+            background-color: #6c757d;
+        }
+
+        .button-danger {
+            background-color: #dc3545;
+        }
+
+        .button-save {
+            background-color: #28a745;
+        }
+
+        #home, #form, #list {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        #form input, #form select, #search {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        #form input:focus, #form select:focus, #search:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Página Inicial -->
+    <div id="home">
+        <h1>Controle de Estoque</h1>
+        <button onclick="showForm()" class="button-primary">Cadastrar Produto</button>
+        <button onclick="showList()" class="button-secondary">Listar Produtos Cadastrados</button>
+    </div>
+
+    <!-- Formulário de Cadastro -->
+    <div id="form" style="display: none;">
+        <h2>Cadastrar Produto</h2>
+        <form onsubmit="addProduct(event)">
+            <input type="text" id="name" placeholder="Nome do Produto" required>
+            <input type="text" id="color" placeholder="Cor" required>
+            <input type="number" id="price" placeholder="Preço" required>
+            <input type="number" id="quantity" placeholder="Quantidade" required>
+            <select id="gender" required>
+                <option value="" disabled selected>Gênero</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+            </select>
+            <button type="submit" class="button-save">Salvar Produto</button>
+            <button type="button" onclick="goHome()" class="button-danger">Voltar</button>
+        </form>
+    </div>
+
+    <!-- Lista de Produtos -->
+    <div id="list" style="display: none;">
+        <h2>Produtos Cadastrados</h2>
+        <input type="text" id="search" placeholder="Pesquisar produto..." oninput="searchProduct()">
+        <ul id="productList"></ul>
+        <button onclick="downloadExcel()" class="button-save">Exportar para Excel</button>
+        <button onclick="goHome()" class="button-danger">Voltar</button>
+    </div>
+
+    <script>
+        const products = [];
+
+        function showForm() {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('form').style.display = 'block';
+            document.getElementById('list').style.display = 'none';
+        }
+
+        function showList() {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('form').style.display = 'none';
+            document.getElementById('list').style.display = 'block';
+            renderList();
+        }
+
+        function goHome() {
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('form').style.display = 'none';
+            document.getElementById('list').style.display = 'none';
+        }
+
+        function addProduct(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const color = document.getElementById('color').value;
+            const price = parseFloat(document.getElementById('price').value).toFixed(2);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const gender = document.getElementById('gender').value;
+
+            products.push({ name, color, price, quantity, gender });
+
+            document.getElementById('name').value = '';
+            document.getElementById('color').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('quantity').value = '';
+            document.getElementById('gender').value = '';
+
+            alert('Produto cadastrado com sucesso!');
+            goHome();
+        }
+
+        function renderList() {
+            const list = document.getElementById('productList');
+            list.innerHTML = '';
+
+            if (products.length === 0) {
+                list.innerHTML = '<li>Nenhum produto cadastrado.</li>';
+            } else {
+                products.forEach((product, index) => {
+                    list.innerHTML += `
+                        <li>
+                            <strong style="font-size: 18px;">${product.name}</strong><br>
+                            Cor: ${product.color}<br>
+                            Preço: R$ ${product.price}<br>
+                            Quantidade: ${product.quantity}<br>
+                            Gênero: ${product.gender}<br>
+                            <button onclick="editProduct(${index})" class="button-primary">Editar</button>
+                            <button onclick="deleteProduct(${index})" class="button-danger">Excluir</button>
+                        </li>`;
+                });
+            }
+        }
+
+        function editProduct(index) {
+            const product = products[index];
+            document.getElementById('name').value = product.name;
+            document.getElementById('color').value = product.color;
+            document.getElementById('price').value = product.price;
+            document.getElementById('quantity').value = product.quantity;
+            document.getElementById('gender').value = product.gender;
+
+            products.splice(index, 1);
+            showForm();
+        }
+
+        function deleteProduct(index) {
+            if (confirm("Tem certeza que deseja excluir este produto?")) {
+                products.splice(index, 1);
+                renderList();
+            }
+        }
+
+        function searchProduct() {
+            const searchValue = document.getElementById('search').value.toLowerCase();
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchValue));
+            const list = document.getElementById('productList');
+            list.innerHTML = '';
+
+            filteredProducts.forEach((product, index) => {
+                list.innerHTML += `
+                    <li>
+                        <strong style="font-size: 18px;">${product.name}</strong><br>
+                        Cor: ${product.color}<br>
+                        Preço: R$ ${product.price}<br>
+                        Quantidade: ${product.quantity}<br>
+                        Gênero: ${product.gender}<br>
+                        <button onclick="editProduct(${index})" class="button-primary">Editar</button>
+                        <button onclick="deleteProduct(${index})" class="button-danger">Excluir</button>
+                    </li>`;
+            });
+        }
+
+        function downloadExcel() {
+            let csvContent = "data:text/csv;charset=utf-8," + ["Nome,Cor,Preço,Quantidade,Gênero"].join(",") + "\n" +
+                products.map(product => `${product.name},${product.color},${product.price},${product.quantity},${product.gender}`).join("\n");
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "produtos_cadastrados.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
