@@ -132,7 +132,7 @@ export default function Home() {
             <span className="eyebrow">Vimi V1</span>
             <h2>O site já começa a operar como produto.</h2>
             <p>Next.js no frontend. Supabase para conteúdo e leads. Vercel para deploy. A próxima camada conecta o Vimi Admin, CRM, analytics e automações.</p>
-            <a className="pill primary" href="/admin">Conhecer o Vimi Admin <span>↗</span></a>
+            <a className="pill primary" href="/studio">Conhecer o Vimi Admin <span>↗</span></a>
           </div>
         </section>
       </main>
@@ -141,7 +141,7 @@ export default function Home() {
         <div className="container footer-grid">
           <div><a className="wordmark" href="/">vimi</a><p>Seu site. Sempre evoluindo.</p></div>
           <div><b>Produto</b><a href="#solucoes">Soluções</a><a href="#insights">Insights</a><a href="#diagnostico">Começar</a></div>
-          <div><b>Operação</b><a href="/admin">Admin</a><span>Next.js + Supabase + Vercel</span></div>
+          <div><b>Operação</b><a href="/studio">Admin</a><span>Next.js + Supabase + Vercel</span></div>
         </div>
         <div className="container footnote">© 2026 Vimi · V1 Production Foundation</div>
       </footer>
