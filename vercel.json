@@ -10,5 +10,7 @@
         }
       ]
     }
-  ]
+  ],
+  "outputDirectory": ".next",
+  "buildCommand": "npm run build"
 }
