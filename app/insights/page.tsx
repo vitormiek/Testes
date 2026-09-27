@@ -1,4 +1,14 @@
-export default function InsightsPage(){
+import { getPublishedPosts } from "@/lib/vimi-api";
+
+type Post = { id:string; title:string; slug:string; excerpt:string|null; content:string|null; category:string };
+
+export default async function InsightsPage(){
+  let posts: Post[] = [];
+  try {
+    const data = await getPublishedPosts();
+    posts = data.posts || [];
+  } catch {}
+
   return (
     <main className="insights-page">
       <header className="simple-nav">
@@ -7,8 +17,11 @@ export default function InsightsPage(){
       </header>
       <section className="insights-hero">
         <div className="eyebrow dark">Vimi Insights</div>
-        <h1>Conteúdo para quem trata a web como negócio.</h1>
-        <p>A biblioteca editorial da Vimi já está conectada ao backend. A listagem dinâmica será ativada no próximo incremento desta V1.</p>
+        <h1>Ideias para uma web que não fica parada.</h1>
+        <p>Estratégia, tecnologia, SEO, conversão e operação digital — publicadas a partir da nova base editorial da Vimi.</p>
+      </section>
+      <section className="insights-list">
+        {posts.map((post)=><article id={post.slug} key={post.id}><div className="meta">{post.category}</div><h2>{post.title}</h2><p className="lead">{post.excerpt}</p><p>{post.content}</p></article>)}
       </section>
     </main>
   );
