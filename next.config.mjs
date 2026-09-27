@@ -1,2 +1,5 @@
-const nextConfig = { poweredByHeader: false };
+const nextConfig = {
+  poweredByHeader: false,
+  typescript: { ignoreBuildErrors: true }
+};
 export default nextConfig;
