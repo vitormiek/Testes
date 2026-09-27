@@ -1,5 +1,6 @@
 {
-  "cleanUrls": true,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/(.*)",
@@ -10,7 +11,5 @@
         }
       ]
     }
-  ],
-  "outputDirectory": ".next",
-  "buildCommand": "npm run build"
+  ]
 }
