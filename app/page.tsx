@@ -121,12 +121,12 @@ export default function Home() {
               <p>Traduzimos complexidade técnica em uma operação mais simples, profissional e preparada para gerar oportunidades.</p>
             </div>
             <div className="pain-grid">
-              <article className="pain-card issue-card"><div className="issue-head"><span className="issue-dot"></span><b>Fricção 01</b></div><div className="issue-mark">↺</div><h3>Site desatualizado</h3><p>A empresa evoluiu, mas o site ainda transmite uma versão antiga do negócio.</p></article>
-              <article className="pain-card issue-card"><div className="issue-head"><span className="issue-dot"></span><b>Fricção 02</b></div><div className="issue-mark">↘</div><h3>Poucos contatos</h3><p>Há visitas, mas faltam caminhos claros para transformar interesse em conversa comercial.</p></article>
-              <article className="pain-card issue-card"><div className="issue-head"><span className="issue-dot"></span><b>Fricção 03</b></div><div className="issue-mark">⌁</div><h3>Ferramentas desconectadas</h3><p>Marketing, atendimento e vendas trabalham em sistemas que não compartilham contexto.</p></article>
-              <article className="pain-card issue-card"><div className="issue-head"><span className="issue-dot"></span><b>Fricção 04</b></div><div className="issue-mark">•••</div><h3>Dependência para mudar</h3><p>Qualquer ajuste simples depende de orçamento, fila, fornecedor e tempo demais.</p></article>
-              <article className="pain-card issue-card"><div className="issue-head"><span className="issue-dot"></span><b>Fricção 05</b></div><div className="issue-mark">?</div><h3>Dados sem direção</h3><p>Métricas existem, mas não ajudam a entender o que realmente gera oportunidade.</p></article>
-              <article className="pain-card issue-card"><div className="issue-head"><span className="issue-dot"></span><b>Fricção 06</b></div><div className="issue-mark">⌇</div><h3>Crescimento sem estrutura</h3><p>A operação comercial cresce, mas a presença digital não acompanha a mesma velocidade.</p></article>
+              <article className="pain-card issue-card"><div className="issue-mark">↺</div><h3>Site desatualizado</h3><p>A empresa evoluiu, mas o site ainda transmite uma versão antiga do negócio.</p></article>
+              <article className="pain-card issue-card"><div className="issue-mark">↘</div><h3>Poucos contatos</h3><p>Há visitas, mas faltam caminhos claros para transformar interesse em conversa comercial.</p></article>
+              <article className="pain-card issue-card"><div className="issue-mark">⌁</div><h3>Ferramentas desconectadas</h3><p>Marketing, atendimento e vendas trabalham em sistemas que não compartilham contexto.</p></article>
+              <article className="pain-card issue-card"><div className="issue-mark">•••</div><h3>Dependência para mudar</h3><p>Qualquer ajuste simples depende de orçamento, fila, fornecedor e tempo demais.</p></article>
+              <article className="pain-card issue-card"><div className="issue-mark">?</div><h3>Dados sem direção</h3><p>Métricas existem, mas não ajudam a entender o que realmente gera oportunidade.</p></article>
+              <article className="pain-card issue-card"><div className="issue-mark">⌇</div><h3>Crescimento sem estrutura</h3><p>A operação comercial cresce, mas a presença digital não acompanha a mesma velocidade.</p></article>
             </div>
           </div>
         </section>
@@ -154,24 +154,30 @@ export default function Home() {
               <div><span className="eyebrow dark">Conexões que trabalham juntas</span><h2>Tecnologia por trás. Simplicidade na frente.</h2></div>
               <div><p>Seu cliente não precisa entender sua infraestrutura. Ele precisa sentir que tudo funciona. A Vimi conecta as ferramentas certas sem transformar tecnologia em obstáculo.</p><a className="text-link" href="/ecossistema">Explorar o ecossistema ↗</a></div>
             </div>
-            <div className="connection-map">
+            <div className="connection-stage">
               <svg className="connection-lines" viewBox="0 0 100 100" aria-hidden="true">
-                <line x1="50" y1="50" x2="50" y2="10" />
-                <line x1="50" y1="50" x2="83" y2="28" />
-                <line x1="50" y1="50" x2="84" y2="72" />
-                <line x1="50" y1="50" x2="50" y2="90" />
-                <line x1="50" y1="50" x2="16" y2="72" />
-                <line x1="50" y1="50" x2="17" y2="28" />
+                <line x1="50" y1="50" x2="50" y2="16" />
+                <line x1="50" y1="50" x2="23" y2="30" />
+                <line x1="50" y1="50" x2="77" y2="30" />
+                <line x1="50" y1="50" x2="23" y2="70" />
+                <line x1="50" y1="50" x2="77" y2="70" />
+                <line x1="50" y1="50" x2="50" y2="84" />
               </svg>
+
               <div className="connection-ring ring-one"></div>
               <div className="connection-ring ring-two"></div>
-              <div className="connection-hub"><span>vimi</span><small>conecta</small></div>
-              <a className="connection-node node-1" href="/ecossistema"><span>CRM & vendas</span></a>
-              <a className="connection-node node-2" href="/ecossistema"><span>WhatsApp</span></a>
-              <a className="connection-node node-3" href="/ecossistema"><span>Dados & inteligência</span></a>
-              <a className="connection-node node-4" href="/ecossistema"><span>Automação</span></a>
-              <a className="connection-node node-5" href="/ecossistema"><span>Infraestrutura</span></a>
-              <a className="connection-node node-6" href="/ecossistema"><span>Descoberta & performance</span></a>
+
+              <div className="connection-grid">
+                <a className="connection-node node-top" href="/ecossistema"><span>CRM & vendas</span></a>
+                <a className="connection-node node-left-top" href="/ecossistema"><span>Descoberta & performance</span></a>
+                <a className="connection-node node-right-top" href="/ecossistema"><span>WhatsApp</span></a>
+                <a className="connection-node node-left-bottom" href="/ecossistema"><span>Infraestrutura</span></a>
+
+                <div className="connection-hub"><span>vimi</span><small>conecta</small></div>
+
+                <a className="connection-node node-right-bottom" href="/ecossistema"><span>Dados & inteligência</span></a>
+                <a className="connection-node node-bottom" href="/ecossistema"><span>Automação</span></a>
+              </div>
             </div>
           </div>
         </section>
