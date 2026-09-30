@@ -58,7 +58,7 @@ export function MotionEffects() {
         if (parent?.matches(".cards,.steps,.insights-grid,.compare,.footer-grid")) {
           const siblings = Array.from(parent.children);
           const index = siblings.indexOf(el);
-          el.style.setProperty("--motion-delay", \`\${Math.min(index * 85, 340)}ms\`);
+          el.style.setProperty("--motion-delay", String(Math.min(index * 85, 340)) + "ms");
         }
         observer.observe(el);
       });
@@ -73,8 +73,8 @@ export function MotionEffects() {
           const rect = button.getBoundingClientRect();
           const x = (event.clientX - rect.left - rect.width / 2) * 0.14;
           const y = (event.clientY - rect.top - rect.height / 2) * 0.18;
-          button.style.setProperty("--mag-x", \`\${x}px\`);
-          button.style.setProperty("--mag-y", \`\${y}px\`);
+          button.style.setProperty("--mag-x", String(x) + "px");
+          button.style.setProperty("--mag-y", String(y) + "px");
         };
         const reset = () => {
           button.style.setProperty("--mag-x", "0px");
@@ -118,8 +118,8 @@ export function MotionEffects() {
       const rect = hero.getBoundingClientRect();
       const x = ((event.clientX - rect.left) / rect.width) * 100;
       const y = ((event.clientY - rect.top) / rect.height) * 100;
-      hero.style.setProperty("--hero-x", \`\${x}%\`);
-      hero.style.setProperty("--hero-y", \`\${y}%\`);
+      hero.style.setProperty("--hero-x", String(x) + "%");
+      hero.style.setProperty("--hero-y", String(y) + "%");
     };
     hero?.addEventListener("pointermove", heroMove);
 
@@ -128,9 +128,9 @@ export function MotionEffects() {
       const rect = dashboard.getBoundingClientRect();
       const px = (event.clientX - rect.left) / rect.width - 0.5;
       const py = (event.clientY - rect.top) / rect.height - 0.5;
-      dashboard.style.setProperty("--dash-ry", \`\${-7 + px * 7}deg\`);
-      dashboard.style.setProperty("--dash-rx", \`\${3 - py * 5}deg\`);
-      dashboard.style.setProperty("--dash-y", \`\${py * -8}px\`);
+      dashboard.style.setProperty("--dash-ry", String(-7 + px * 7) + "deg");
+      dashboard.style.setProperty("--dash-rx", String(3 - py * 5) + "deg");
+      dashboard.style.setProperty("--dash-y", String(py * -8) + "px");
     };
     const dashboardReset = () => {
       dashboard?.style.setProperty("--dash-ry", "-7deg");
