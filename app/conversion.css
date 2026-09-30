@@ -4,9 +4,9 @@
 .hero-copy h1 em{display:block;width:max-content;max-width:100%;overflow:visible;padding-right:.08em}
 .product-visual{isolation:isolate}
 .ticker{padding:0;overflow:hidden}
-.ticker-track{display:flex;width:max-content;animation:vimiTickerInfinite 26s linear infinite;will-change:transform}
+.ticker>.ticker-track{display:flex;width:max-content;animation:vimiTickerInfinite 26s linear infinite;will-change:transform}
 .ticker-track span{display:block;flex:none;padding:18px 44px 18px 0;white-space:nowrap}
-.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker:hover>.ticker-track{animation-play-state:paused}
 @keyframes vimiTickerInfinite{to{transform:translateX(-50%)}}
 
 .conversion-section{background:linear-gradient(180deg,#fbfaf6 0%,#f7f9fd 100%)}
