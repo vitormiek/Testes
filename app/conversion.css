@@ -428,3 +428,241 @@
   .connection-map{grid-template-columns:1fr}
   .connection-hub{grid-column:auto}
 }
+
+
+/* ===== Section refinements v3 ===== */
+
+/* 1. Cleaner problem cards */
+.issue-card{
+  min-height:250px;
+  padding:24px 24px 26px 28px;
+}
+.issue-card .issue-head,
+.issue-card .issue-dot{
+  display:none !important;
+}
+.issue-mark{
+  width:52px;
+  height:52px;
+  margin:0 0 22px 0;
+  transform:none !important;
+  border-radius:16px;
+  font-size:21px;
+  align-self:flex-start;
+}
+.issue-card h3{
+  margin:0 0 12px;
+  font-size:22px;
+  line-height:1.15;
+}
+.issue-card p{margin:0}
+.issue-card:hover .issue-mark{
+  transform:translateY(-2px) scale(1.04) !important;
+}
+
+/* 2. Stronger segment icon contrast without disappearing stroke animation */
+.segment-icon-card{
+  min-height:190px;
+  background:linear-gradient(180deg,#ffffff 0%,#f9fbff 100%);
+}
+.segment-visual{
+  width:72px;
+  height:72px;
+  color:#216df0;
+  background:
+    radial-gradient(circle at 72% 22%,rgba(255,255,255,.98),transparent 25%),
+    linear-gradient(145deg,#e7f0ff 0%,#dbe8ff 100%);
+  border-color:#bfd5ff;
+  box-shadow:
+    0 16px 34px rgba(38,109,240,.15),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+.segment-visual svg{
+  width:36px;
+  height:36px;
+  overflow:visible;
+  filter:drop-shadow(0 2px 5px rgba(33,109,240,.22));
+}
+.segment-visual svg *{
+  stroke:currentColor !important;
+  stroke-width:2 !important;
+  stroke-dasharray:none !important;
+  stroke-dashoffset:0 !important;
+  opacity:1 !important;
+}
+.segment-icon-card:hover .segment-visual{
+  color:#125ee4;
+  background:
+    radial-gradient(circle at 72% 22%,rgba(255,255,255,1),transparent 25%),
+    linear-gradient(145deg,#dce9ff 0%,#ccddff 100%);
+  box-shadow:
+    0 22px 44px rgba(38,109,240,.22),
+    0 0 0 5px rgba(56,130,246,.055),
+    inset 0 1px 0 rgba(255,255,255,1);
+}
+.segment-icon-card:hover .segment-visual svg{
+  transform:scale(1.07);
+  filter:drop-shadow(0 4px 8px rgba(33,109,240,.28));
+}
+.segment-visual svg{transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s}
+
+/* 3. Rebuilt ecosystem stage: stable grid + controlled connections */
+.connection-stage{
+  position:relative;
+  min-height:680px;
+  border-radius:40px;
+  overflow:hidden;
+  padding:70px 56px 62px;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(66,120,246,.18),transparent 22%),
+    radial-gradient(circle at 18% 18%,rgba(139,92,246,.14),transparent 23%),
+    radial-gradient(circle at 82% 76%,rgba(56,130,246,.13),transparent 25%),
+    linear-gradient(145deg,#09101f,#10192d);
+  border:1px solid #192541;
+  box-shadow:0 36px 90px rgba(18,27,48,.16);
+  isolation:isolate;
+}
+.connection-stage:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background-image:radial-gradient(rgba(255,255,255,.12) .7px,transparent .7px);
+  background-size:22px 22px;
+  opacity:.16;
+  -webkit-mask-image:radial-gradient(circle at center,#000 35%,transparent 83%);
+  mask-image:radial-gradient(circle at center,#000 35%,transparent 83%);
+}
+.connection-stage:after{
+  content:"";
+  position:absolute;
+  width:520px;height:520px;
+  border-radius:50%;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(56,130,246,.10),transparent 66%);
+  pointer-events:none;
+  z-index:0;
+}
+.connection-stage .connection-lines{
+  position:absolute;
+  inset:58px;
+  width:calc(100% - 116px);
+  height:calc(100% - 116px);
+  z-index:1;
+  overflow:visible;
+  pointer-events:none;
+}
+.connection-stage .connection-lines line{
+  stroke:rgba(115,158,255,.38);
+  stroke-width:.34;
+  stroke-dasharray:2.4 2.4;
+  animation:connectionDash 9s linear infinite;
+}
+.connection-stage .connection-ring{
+  z-index:1;
+}
+.connection-grid{
+  position:relative;
+  z-index:3;
+  display:grid;
+  grid-template-columns:minmax(190px,1fr) 240px minmax(190px,1fr);
+  grid-template-rows:100px 1fr 1fr 100px;
+  grid-template-areas:
+    ". top ."
+    "leftTop hub rightTop"
+    "leftBottom hub rightBottom"
+    ". bottom .";
+  gap:20px 38px;
+  min-height:548px;
+  align-items:center;
+}
+.connection-stage .connection-hub{
+  grid-area:hub;
+  position:relative;
+  left:auto;
+  top:auto;
+  transform:none;
+  justify-self:center;
+  align-self:center;
+  width:170px;
+  height:170px;
+  z-index:5;
+}
+.connection-stage .connection-node{
+  position:relative;
+  left:auto;
+  top:auto;
+  min-width:0;
+  width:min(100%,230px);
+  min-height:78px;
+  justify-self:center;
+  padding:16px 20px;
+  animation:none !important;
+  margin:0 !important;
+}
+.connection-stage .connection-node.motion-ready{
+  transform:translate3d(0,26px,0) scale(.985);
+}
+.connection-stage .connection-node.motion-ready.is-visible{
+  transform:translate3d(0,0,0) scale(1);
+}
+.connection-stage .connection-node.motion-ready.is-visible:hover{
+  transform:translate3d(0,-5px,0) scale(1.035);
+}
+.connection-stage .connection-node span{
+  font-size:14px;
+  line-height:1.25;
+}
+.node-top{grid-area:top}
+.node-left-top{grid-area:leftTop}
+.node-right-top{grid-area:rightTop}
+.node-left-bottom{grid-area:leftBottom}
+.node-right-bottom{grid-area:rightBottom}
+.node-bottom{grid-area:bottom}
+
+@media(max-width:960px){
+  .connection-stage{
+    min-height:auto;
+    padding:42px 28px;
+  }
+  .connection-stage .connection-lines,
+  .connection-stage .connection-ring{
+    display:none;
+  }
+  .connection-grid{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto;
+    grid-template-areas:
+      "hub hub"
+      "top top"
+      "leftTop rightTop"
+      "leftBottom rightBottom"
+      "bottom bottom";
+    min-height:auto;
+    gap:14px;
+  }
+  .connection-stage .connection-hub{
+    width:142px;
+    height:142px;
+    margin:0 auto 16px;
+  }
+  .connection-stage .connection-node{
+    width:100%;
+    max-width:none;
+  }
+}
+@media(max-width:620px){
+  .connection-stage{padding:32px 18px;border-radius:30px}
+  .connection-grid{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "hub"
+      "top"
+      "leftTop"
+      "rightTop"
+      "leftBottom"
+      "rightBottom"
+      "bottom";
+  }
+}
