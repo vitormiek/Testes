@@ -90,8 +90,8 @@ export function MotionEffects() {
         surface.classList.add("spotlight-surface");
         surface.addEventListener("pointermove", (event) => {
           const rect = surface.getBoundingClientRect();
-          surface.style.setProperty("--spot-x", \`\${event.clientX - rect.left}px\`);
-          surface.style.setProperty("--spot-y", \`\${event.clientY - rect.top}px\`);
+          surface.style.setProperty("--spot-x", String(event.clientX - rect.left) + "px");
+          surface.style.setProperty("--spot-y", String(event.clientY - rect.top) + "px");
         });
       });
     };
