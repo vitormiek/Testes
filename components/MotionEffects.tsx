@@ -84,7 +84,7 @@ export function MotionEffects() {
         button.addEventListener("pointerleave", reset);
       });
 
-      root.querySelectorAll<HTMLElement>(".card,.insight,.compare-card,.wizard,.pain-card,.segment-card,.ecosystem-card,.solution-detail,.segment-page-card,.ecosystem-page-card").forEach((surface) => {
+      root.querySelectorAll<HTMLElement>(".card,.insight,.compare-card,.wizard,.pain-card,.segment-card,.ecosystem-card,.solution-detail,.segment-page-card,.ecosystem-page-card,.comparison-side,.issue-card,.segment-icon-card,.connection-node").forEach((surface) => {
         if (surface.dataset.spotBound === "1") return;
         surface.dataset.spotBound = "1";
         surface.classList.add("spotlight-surface");
