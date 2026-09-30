@@ -7,14 +7,19 @@ const TARGETS = [
   ".product-visual",
   ".section-head",
   ".compare-card",
+  ".comparison-side",
   ".card",
+  ".issue-card",
+  ".segment-icon-card",
+  ".connection-node",
+  ".connection-hub",
   ".steps article",
   ".insight",
   ".diagnosis-grid > div",
   ".wizard",
   ".final-cta",
   ".footer-grid > div"
-].join(",");
+].join(",");;
 
 export function MotionEffects() {
   useEffect(() => {
