@@ -1,9 +1,11 @@
 import { BlogPreview } from "@/components/BlogPreview";
 import { LeadWizard } from "@/components/LeadWizard";
+import { MotionEffects } from "@/components/MotionEffects";
 
 export default function Home() {
   return (
     <>
+      <MotionEffects />
       <header className="site-nav">
         <a className="wordmark" href="#top">vimi</a>
         <nav>
