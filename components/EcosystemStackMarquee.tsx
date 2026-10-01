@@ -21,9 +21,8 @@ function ToolCard({ name, icon }: { name: string; icon: string }) {
 }
 
 export function EcosystemStackMarquee() {
-  const rowOne = [...tools, ...tools];
-  const rowTwoBase = [...tools.slice(5), ...tools.slice(0, 5)];
-  const rowTwo = [...rowTwoBase, ...rowTwoBase];
+  const rowOne = tools;
+  const rowTwo = [...tools.slice(5), ...tools.slice(0, 5)];
 
   return (
     <section className="ecosystem-stack-section" aria-labelledby="ecosystem-stack-title">
@@ -40,14 +39,20 @@ export function EcosystemStackMarquee() {
 
         <div className="stack-marquee-window" aria-label="Tecnologias utilizadas pela Vimi">
           <div className="stack-marquee-row row-forward">
-            {rowOne.map((tool, index) => (
-              <ToolCard {...tool} key={"a-" + tool.name + "-" + index} />
-            ))}
+            <div className="stack-marquee-group">
+              {rowOne.map((tool, index) => <ToolCard {...tool} key={"a1-" + tool.name + "-" + index} />)}
+            </div>
+            <div className="stack-marquee-group" aria-hidden="true">
+              {rowOne.map((tool, index) => <ToolCard {...tool} key={"a2-" + tool.name + "-" + index} />)}
+            </div>
           </div>
           <div className="stack-marquee-row row-reverse">
-            {rowTwo.map((tool, index) => (
-              <ToolCard {...tool} key={"b-" + tool.name + "-" + index} />
-            ))}
+            <div className="stack-marquee-group">
+              {rowTwo.map((tool, index) => <ToolCard {...tool} key={"b1-" + tool.name + "-" + index} />)}
+            </div>
+            <div className="stack-marquee-group" aria-hidden="true">
+              {rowTwo.map((tool, index) => <ToolCard {...tool} key={"b2-" + tool.name + "-" + index} />)}
+            </div>
           </div>
         </div>
 
