@@ -19,6 +19,7 @@ const TARGETS = [
   ".steps article",
   ".journey-step",
   ".solution-story-row",
+  ".client-logo-card",
   ".newsroom-lead",
   ".newsroom-side-story",
   ".news-feed-card",
@@ -70,7 +71,7 @@ export function MotionEffects() {
         else if (el.matches(".hero-copy")) el.classList.add("motion-from-left");
 
         const parent = el.parentElement;
-        if (parent?.matches(".cards,.steps,.journey-stage,.home-segment-mosaic,.insights-grid,.news-feed-grid,.compare,.footer-grid,.pain-grid,.segment-grid,.ecosystem-grid,.trust-grid,.solution-detail-grid,.segment-page-grid,.ecosystem-page-grid,.newsroom-side")) {
+        if (parent?.matches(".cards,.steps,.journey-stage,.home-segment-mosaic,.insights-grid,.news-feed-grid,.compare,.footer-grid,.pain-grid,.segment-grid,.ecosystem-grid,.trust-grid,.solution-detail-grid,.segment-page-grid,.ecosystem-page-grid,.newsroom-side,.client-logo-grid")) {
           const siblings = Array.from(parent.children);
           const index = siblings.indexOf(el);
           el.style.setProperty("--motion-delay", String(Math.min(index * 85, 340)) + "ms");
@@ -99,7 +100,7 @@ export function MotionEffects() {
         button.addEventListener("pointerleave", reset);
       });
 
-      root.querySelectorAll<HTMLElement>(".card,.insight,.compare-card,.wizard,.pain-card,.segment-card,.ecosystem-card,.solution-detail,.segment-page-card,.ecosystem-page-card,.comparison-side,.issue-card,.segment-icon-card,.home-segment-tile,.connection-node,.journey-step,.solution-story-row,.newsroom-lead,.newsroom-side-story,.news-feed-card,.insights-cta-banner").forEach((surface) => {
+      root.querySelectorAll<HTMLElement>(".card,.insight,.compare-card,.wizard,.pain-card,.segment-card,.ecosystem-card,.solution-detail,.segment-page-card,.ecosystem-page-card,.comparison-side,.issue-card,.segment-icon-card,.home-segment-tile,.connection-node,.journey-step,.solution-story-row,.client-logo-card,.newsroom-lead,.newsroom-side-story,.news-feed-card,.insights-cta-banner").forEach((surface) => {
         if (surface.dataset.spotBound === "1") return;
         surface.dataset.spotBound = "1";
         surface.classList.add("spotlight-surface");
