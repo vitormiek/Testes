@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { getPublishedPost } from "@/lib/vimi-api";
 
 type Post={
@@ -46,7 +44,7 @@ export function ArticleReader(){
     </header>
 
     <section className="article-body">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content || ""}</ReactMarkdown>
+      <div className="article-plain-content">{post.content || ""}</div>
     </section>
 
     <section className="article-end">
