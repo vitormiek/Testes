@@ -1,20 +1,54 @@
-const tools = [
-  { name: "Vercel", icon: "https://cdn.simpleicons.org/vercel/747E8E" },
-  { name: "Supabase", icon: "https://cdn.simpleicons.org/supabase/747E8E" },
-  { name: "GitHub", icon: "https://cdn.simpleicons.org/github/747E8E" },
-  { name: "Codex", icon: "https://cdn.simpleicons.org/openai/747E8E" },
-  { name: "ActiveCampaign", icon: "https://cdn.simpleicons.org/activecampaign/747E8E" },
-  { name: "Google Analytics", icon: "https://cdn.simpleicons.org/googleanalytics/747E8E" },
-  { name: "Meta", icon: "https://cdn.simpleicons.org/meta/747E8E" },
-  { name: "WhatsApp Business", icon: "https://cdn.simpleicons.org/whatsapp/747E8E" },
-  { name: "n8n", icon: "https://cdn.simpleicons.org/n8n/747E8E" },
-  { name: "Google", icon: "https://cdn.simpleicons.org/google/747E8E" }
+"use client";
+
+type StackTool = {
+  name: string;
+  icon?: string;
+  fallback: string;
+};
+
+const si = (slug: string) =>
+  "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/" + slug + ".svg";
+
+const tools: StackTool[] = [
+  { name: "Vercel", icon: "https://cdn.simpleicons.org/vercel/747E8E", fallback: "V" },
+  { name: "Supabase", icon: "https://cdn.simpleicons.org/supabase/747E8E", fallback: "S" },
+  { name: "GitHub", icon: "https://cdn.simpleicons.org/github/747E8E", fallback: "GH" },
+
+  /* Switched away from cdn.simpleicons.org for the two marks that were
+     returning broken images in production. */
+  { name: "Codex", icon: si("openai"), fallback: "✣" },
+  { name: "ActiveCampaign", icon: si("activecampaign"), fallback: "AC" },
+
+  { name: "Google Analytics", icon: "https://cdn.simpleicons.org/googleanalytics/747E8E", fallback: "GA" },
+  { name: "Meta", icon: "https://cdn.simpleicons.org/meta/747E8E", fallback: "M" },
+  { name: "WhatsApp Business", icon: "https://cdn.simpleicons.org/whatsapp/747E8E", fallback: "WA" },
+  { name: "n8n", icon: "https://cdn.simpleicons.org/n8n/747E8E", fallback: "n8n" },
+  { name: "Google", icon: "https://cdn.simpleicons.org/google/747E8E", fallback: "G" },
+
+  { name: "RD Station", icon: si("rdstation"), fallback: "RD" },
+  { name: "Mailchimp", icon: si("mailchimp"), fallback: "M" },
+  { name: "Manychat", icon: si("manychat"), fallback: "MC" },
+  { name: "HubSpot", icon: si("hubspot"), fallback: "HS" },
+
+  /* Reportei does not have a dependable public icon endpoint in the stack,
+     so the card uses a neutral brand monogram instead of risking a broken mark. */
+  { name: "Reportei", fallback: "R" }
 ];
 
-function ToolCard({ name, icon }: { name: string; icon: string }) {
+function ToolCard({ name, icon, fallback }: StackTool) {
   return (
     <div className="stack-logo-card">
-      <img src={icon} alt="" loading="lazy" />
+      <span className={"stack-logo-mark" + (icon ? "" : " fallback")}>
+        {icon && (
+          <img
+            src={icon}
+            alt=""
+            loading="lazy"
+            onError={(event) => event.currentTarget.parentElement?.classList.add("fallback")}
+          />
+        )}
+        <b className="stack-logo-fallback" aria-hidden="true">{fallback}</b>
+      </span>
       <span>{name}</span>
     </div>
   );
@@ -22,7 +56,7 @@ function ToolCard({ name, icon }: { name: string; icon: string }) {
 
 export function EcosystemStackMarquee() {
   const rowOne = tools;
-  const rowTwo = [...tools.slice(5), ...tools.slice(0, 5)];
+  const rowTwo = [...tools.slice(7), ...tools.slice(0, 7)];
 
   return (
     <section className="ecosystem-stack-section" aria-labelledby="ecosystem-stack-title">
@@ -46,6 +80,7 @@ export function EcosystemStackMarquee() {
               {rowOne.map((tool, index) => <ToolCard {...tool} key={"a2-" + tool.name + "-" + index} />)}
             </div>
           </div>
+
           <div className="stack-marquee-row row-reverse">
             <div className="stack-marquee-group">
               {rowTwo.map((tool, index) => <ToolCard {...tool} key={"b1-" + tool.name + "-" + index} />)}
