@@ -6,6 +6,12 @@ export async function getPublishedPosts() {
   return response.json();
 }
 
+export async function getBlogBanners() {
+  const response = await fetch(VIMI_API + "?action=banners", { cache: "no-store" });
+  if (!response.ok) throw new Error("Falha ao carregar banners");
+  return response.json();
+}
+
 export async function submitLead(payload: Record<string, unknown>) {
   const response = await fetch(VIMI_API + "?action=lead", {
     method: "POST",
