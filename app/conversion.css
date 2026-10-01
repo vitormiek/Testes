@@ -1266,3 +1266,48 @@
 @media(prefers-reduced-motion:reduce){
   .stack-marquee-row{animation-play-state:paused!important}
 }
+
+
+/* Stack logo resilience + additional platform marks */
+.stack-logo-mark{
+  width:32px;
+  height:32px;
+  flex:0 0 32px;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.stack-logo-mark img{
+  width:29px;
+  height:29px;
+  display:block;
+  object-fit:contain;
+  opacity:.77;
+  filter:grayscale(1) saturate(0) brightness(.72);
+  transition:opacity .3s,transform .3s,filter .3s;
+}
+.stack-logo-fallback{
+  display:none;
+  width:31px;
+  height:31px;
+  border-radius:9px;
+  place-items:center;
+  color:#747e8e;
+  background:#e9edf2;
+  border:1px solid #d8dee7;
+  font-size:9px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-.03em;
+}
+.stack-logo-mark.fallback img{display:none}
+.stack-logo-mark.fallback .stack-logo-fallback{display:grid}
+.stack-logo-card:hover .stack-logo-mark img{
+  opacity:1;
+  transform:scale(1.06);
+  filter:grayscale(1) saturate(0) brightness(.58);
+}
+.stack-logo-card:hover .stack-logo-fallback{
+  color:#566171;
+  background:#e3e8ef;
+}
