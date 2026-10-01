@@ -5,15 +5,32 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const tickerText = "SITES · LANDING PAGES · CRM · WHATSAPP · ANALYTICS · SEO · AUTOMAÇÃO · HOSPEDAGEM · CONTEÚDO · PERFORMANCE · ";
-function SegmentIcon({ type }: { type: "services" | "education" | "health" | "realestate" | "local" | "b2b" }) {
-  const common = { width: 34, height: 34, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  if (type === "services") return <svg {...common}><path d="M8 7V5.8A1.8 1.8 0 0 1 9.8 4h4.4A1.8 1.8 0 0 1 16 5.8V7"/><rect x="3.5" y="7" width="17" height="11.5" rx="2.2"/><path d="M3.5 11.2h17M9 11.2v1.6h6v-1.6"/></svg>;
-  if (type === "education") return <svg {...common}><path d="m3 9 9-4 9 4-9 4-9-4Z"/><path d="M7 11.2V15c0 1.5 2.2 3 5 3s5-1.5 5-3v-3.8M21 9v5"/></svg>;
-  if (type === "health") return <svg {...common}><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/><path d="M9 12h2l1-2.5 1.3 5L14.5 12H17"/></svg>;
-  if (type === "realestate") return <svg {...common}><path d="m3.5 11 8.5-7 8.5 7"/><path d="M5.5 10v9h13v-9M9 19v-5h6v5"/></svg>;
-  if (type === "local") return <svg {...common}><path d="M12 21s6-5.3 6-11a6 6 0 1 0-12 0c0 5.7 6 11 6 11Z"/><circle cx="12" cy="10" r="2.2"/></svg>;
-  return <svg {...common}><circle cx="7" cy="7" r="2.2"/><circle cx="17" cy="7" r="2.2"/><circle cx="12" cy="17" r="2.2"/><path d="m8.9 8.3 2 6.2M15.1 8.3l-2 6.2M9.2 7h5.6"/></svg>;
-}
+const homeSegments = [
+  {
+    title: "Serviços profissionais",
+    image: "https://images.pexels.com/photos/7841456/pexels-photo-7841456.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  },
+  {
+    title: "Educação",
+    image: "https://images.pexels.com/photos/8617940/pexels-photo-8617940.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  },
+  {
+    title: "Saúde & clínicas",
+    image: "https://images.pexels.com/photos/5214997/pexels-photo-5214997.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  },
+  {
+    title: "Imobiliário & construção",
+    image: "https://images.pexels.com/photos/8837722/pexels-photo-8837722.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  },
+  {
+    title: "Negócios locais em expansão",
+    image: "https://images.pexels.com/photos/5413992/pexels-photo-5413992.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  },
+  {
+    title: "B2B & empresas em crescimento",
+    image: "https://images.pexels.com/photos/7163395/pexels-photo-7163395.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  }
+];
 
 
 export default function Home() {
@@ -29,7 +46,7 @@ export default function Home() {
 
           <div className="container hero-grid">
             <div className="hero-copy">
-              <h1>Seu site.<br/><em>Sempre<br/>evoluindo</em></h1>
+              <h1>Seu site<br/><em>sempre<br/>evoluindo</em></h1>
               <p>Criamos, hospedamos e gerenciamos sites conectados ao marketing e às vendas da sua empresa — com tecnologia, dados e evolução contínua em uma única operação.</p>
               <div className="hero-actions">
                 <a className="pill primary" href="#diagnostico">Criar meu site <span>↗</span></a>
@@ -117,16 +134,25 @@ export default function Home() {
         <section className="section soft" id="segmentos">
           <div className="container">
             <div className="section-head">
-              <div><span className="eyebrow dark">Para quem é</span><h2>Estratégia muda conforme o negócio. A base de crescimento também.</h2></div>
+              <div><span className="eyebrow dark">Para quem é</span><h2>A estratégia muda conforme o negócio.</h2></div>
               <div><p>Desenhamos a operação web a partir da jornada de compra, da maturidade comercial e do jeito como cada empresa gera valor.</p><a className="text-link" href="/segmentos">Ver segmentos ↗</a></div>
             </div>
-            <div className="segment-grid segment-icons-grid">
-              <article className="segment-card segment-icon-card"><div className="segment-visual"><SegmentIcon type="services" /></div><b>Serviços profissionais</b></article>
-              <article className="segment-card segment-icon-card"><div className="segment-visual"><SegmentIcon type="education" /></div><b>Educação</b></article>
-              <article className="segment-card segment-icon-card"><div className="segment-visual"><SegmentIcon type="health" /></div><b>Saúde & clínicas</b></article>
-              <article className="segment-card segment-icon-card"><div className="segment-visual"><SegmentIcon type="realestate" /></div><b>Imobiliário & construção</b></article>
-              <article className="segment-card segment-icon-card"><div className="segment-visual"><SegmentIcon type="local" /></div><b>Negócios locais em expansão</b></article>
-              <article className="segment-card segment-icon-card"><div className="segment-visual"><SegmentIcon type="b2b" /></div><b>B2B & empresas em crescimento</b></article>
+            <div className="home-segment-mosaic">
+              {homeSegments.map((segment,index)=>(
+                <a
+                  className={"home-segment-tile tile-"+(index+1)}
+                  href="/segmentos"
+                  key={segment.title}
+                >
+                  <img src={segment.image} alt="" loading="lazy" />
+                  <div className="home-segment-overlay"></div>
+                  <div className="home-segment-content">
+                    <span>0{index+1}</span>
+                    <h3>{segment.title}</h3>
+                    <i>↗</i>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
         </section>
@@ -134,7 +160,7 @@ export default function Home() {
         <section className="section ecosystem-section" id="ecossistema">
           <div className="container">
             <div className="section-head">
-              <div><span className="eyebrow dark">Conexões que trabalham juntas</span><h2>Tecnologia por trás. Simplicidade na frente.</h2></div>
+              <div><span className="eyebrow dark">Conexões que trabalham juntas</span><h2>Tecnologia de ponta aplicada ao seu projeto</h2></div>
               <div><p>Seu cliente não precisa entender sua infraestrutura. Ele precisa sentir que tudo funciona. A Vimi conecta as ferramentas certas sem transformar tecnologia em obstáculo.</p><a className="text-link" href="/ecossistema">Explorar o ecossistema ↗</a></div>
             </div>
             <div className="connection-stage">
