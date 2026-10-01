@@ -1311,3 +1311,15 @@
   color:#566171;
   background:#e3e8ef;
 }
+
+
+/* Exact brand assets for stack */
+.stack-logo-mark.wide{
+  width:48px;
+  flex-basis:48px;
+}
+.stack-logo-mark.wide img{
+  width:46px;
+  height:26px;
+  object-fit:contain;
+}
