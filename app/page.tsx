@@ -114,23 +114,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section conversion-section" id="problemas">
-          <div className="container">
-            <div className="section-head">
-              <div><span className="eyebrow dark">O que a Vimi resolve</span><h2>A sua presença digital não pode virar uma coleção de problemas.</h2></div>
-              <p>Traduzimos complexidade técnica em uma operação mais simples, profissional e preparada para gerar oportunidades.</p>
-            </div>
-            <div className="pain-grid">
-              <article className="pain-card issue-card"><div className="issue-mark">↺</div><h3>Site desatualizado</h3><p>A empresa evoluiu, mas o site ainda transmite uma versão antiga do negócio.</p></article>
-              <article className="pain-card issue-card"><div className="issue-mark">↘</div><h3>Poucos contatos</h3><p>Há visitas, mas faltam caminhos claros para transformar interesse em conversa comercial.</p></article>
-              <article className="pain-card issue-card"><div className="issue-mark">⌁</div><h3>Ferramentas desconectadas</h3><p>Marketing, atendimento e vendas trabalham em sistemas que não compartilham contexto.</p></article>
-              <article className="pain-card issue-card"><div className="issue-mark">•••</div><h3>Dependência para mudar</h3><p>Qualquer ajuste simples depende de orçamento, fila, fornecedor e tempo demais.</p></article>
-              <article className="pain-card issue-card"><div className="issue-mark">?</div><h3>Dados sem direção</h3><p>Métricas existem, mas não ajudam a entender o que realmente gera oportunidade.</p></article>
-              <article className="pain-card issue-card"><div className="issue-mark">⌇</div><h3>Crescimento sem estrutura</h3><p>A operação comercial cresce, mas a presença digital não acompanha a mesma velocidade.</p></article>
-            </div>
-          </div>
-        </section>
-
         <section className="section soft" id="segmentos">
           <div className="container">
             <div className="section-head">
@@ -189,11 +172,56 @@ export default function Home() {
               <p>Você não precisa chegar com a solução pronta. Nosso trabalho começa entendendo o negócio e transformando essa realidade em uma operação digital melhor.</p>
             </div>
 
-            <div className="steps">
-              <article><span>01</span><h3>Entendemos</h3><p>Negócio, público, oferta, jornada e o que precisa melhorar.</p></article>
-              <article><span>02</span><h3>Construímos</h3><p>Conteúdo, experiência, tecnologia e conexões necessárias.</p></article>
-              <article><span>03</span><h3>Colocamos para operar</h3><p>Publicação, mensuração e caminhos de conversão entram no ar.</p></article>
-              <article><span>04</span><h3>Evoluímos</h3><p>Novas oportunidades e melhorias entram no ciclo sem reconstruir tudo.</p></article>
+            <div className="journey-stage">
+              <div className="journey-track" aria-hidden="true"><span></span></div>
+
+              <article className="journey-step step-discovery">
+                <div className="journey-node"><span>01</span><i>◎</i></div>
+                <div className="journey-copy">
+                  <small>Descoberta</small>
+                  <h3>Entendemos</h3>
+                  <p>Negócio, público, oferta, jornada e os pontos que precisam evoluir.</p>
+                </div>
+                <div className="journey-visual visual-discovery">
+                  <span></span><span></span><span></span>
+                </div>
+              </article>
+
+              <article className="journey-step step-build">
+                <div className="journey-node"><span>02</span><i>✦</i></div>
+                <div className="journey-copy">
+                  <small>Construção</small>
+                  <h3>Construímos</h3>
+                  <p>Conteúdo, experiência, tecnologia e conexões entram em uma mesma arquitetura.</p>
+                </div>
+                <div className="journey-visual visual-build">
+                  <b></b><b></b><b></b>
+                </div>
+              </article>
+
+              <article className="journey-step step-launch">
+                <div className="journey-node"><span>03</span><i>↗</i></div>
+                <div className="journey-copy">
+                  <small>Operação</small>
+                  <h3>Colocamos para operar</h3>
+                  <p>Publicação, mensuração e caminhos de conversão passam a funcionar juntos.</p>
+                </div>
+                <div className="journey-visual visual-launch">
+                  <span></span><div></div>
+                </div>
+              </article>
+
+              <article className="journey-step step-growth">
+                <div className="journey-node"><span>04</span><i>↻</i></div>
+                <div className="journey-copy">
+                  <small>Evolução contínua</small>
+                  <h3>Evoluímos</h3>
+                  <p>Dados e novas necessidades alimentam o próximo ciclo sem reconstruir tudo do zero.</p>
+                </div>
+                <div className="journey-visual visual-growth">
+                  <i></i><i></i><i></i><i></i>
+                </div>
+              </article>
             </div>
           </div>
         </section>
