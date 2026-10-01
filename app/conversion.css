@@ -1323,3 +1323,186 @@
   height:26px;
   object-fit:contain;
 }
+
+
+/* ===== Homepage refinement — lighter typography + humanized segment mosaic ===== */
+
+/* Keep the scale, reduce visual heaviness of editorial headings */
+main h1,
+main h2,
+main h3{
+  font-weight:650;
+}
+.hero-copy h1{
+  font-weight:640;
+}
+.section-head h2,
+.page-hero h1,
+.solutions-hero h1,
+.blog-hero h1,
+.newsroom-title-row h1,
+.article-heading h1{
+  font-weight:620;
+}
+.final-cta h2,
+.diagnosis-grid h2,
+.centered-cta h2,
+.tech-explainer h2,
+.ecosystem-stack-head h2{
+  font-weight:620;
+}
+
+/* Home segments: photography-led editorial mosaic */
+.home-segment-mosaic{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:14px;
+}
+.home-segment-tile{
+  position:relative;
+  min-height:330px;
+  overflow:hidden;
+  border-radius:30px;
+  isolation:isolate;
+  background:#182035;
+  border:1px solid rgba(18,27,48,.08);
+  box-shadow:0 14px 40px rgba(18,27,48,.055);
+  transition:
+    transform .42s cubic-bezier(.2,.8,.2,1),
+    box-shadow .42s,
+    border-color .3s;
+}
+.home-segment-tile.tile-1{grid-column:span 5}
+.home-segment-tile.tile-2{grid-column:span 3}
+.home-segment-tile.tile-3{grid-column:span 4}
+.home-segment-tile.tile-4{grid-column:span 4;min-height:292px}
+.home-segment-tile.tile-5{grid-column:span 3;min-height:292px}
+.home-segment-tile.tile-6{grid-column:span 5;min-height:292px}
+.home-segment-tile img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(.82) contrast(.96);
+  transform:scale(1.012);
+  transition:
+    transform .75s cubic-bezier(.2,.8,.2,1),
+    filter .45s;
+  z-index:-3;
+}
+.home-segment-overlay{
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:
+    linear-gradient(180deg,rgba(7,12,22,.08) 0%,rgba(7,12,22,.1) 34%,rgba(7,12,22,.82) 100%);
+}
+.home-segment-tile:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:.7;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(112,156,255,.20),transparent 27%),
+    linear-gradient(135deg,rgba(17,25,43,.02),rgba(30,19,63,.12));
+  transition:opacity .35s;
+}
+.home-segment-content{
+  position:absolute;
+  inset:0;
+  padding:22px 23px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  grid-template-rows:auto 1fr auto;
+  align-items:end;
+  color:#fff;
+}
+.home-segment-content>span{
+  grid-column:1;
+  align-self:start;
+  justify-self:start;
+  padding:7px 9px;
+  border-radius:999px;
+  color:rgba(255,255,255,.82);
+  background:rgba(8,13,24,.32);
+  border:1px solid rgba(255,255,255,.17);
+  backdrop-filter:blur(12px);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.12em;
+}
+.home-segment-content h3{
+  grid-column:1;
+  grid-row:3;
+  max-width:90%;
+  margin:0;
+  font-size:clamp(24px,2.45vw,36px);
+  line-height:1.02;
+  letter-spacing:-.045em;
+  text-shadow:0 4px 20px rgba(0,0,0,.22);
+}
+.home-segment-content i{
+  grid-column:2;
+  grid-row:3;
+  align-self:end;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-style:normal;
+  color:#fff;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(12px);
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    background .3s,
+    color .3s;
+}
+.home-segment-tile:hover{
+  transform:translateY(-7px);
+  box-shadow:0 28px 68px rgba(18,27,48,.14);
+  border-color:rgba(57,94,165,.22);
+}
+.home-segment-tile:hover img{
+  transform:scale(1.055);
+  filter:saturate(.96) contrast(1);
+}
+.home-segment-tile:hover:after{opacity:1}
+.home-segment-tile:hover .home-segment-content i{
+  transform:rotate(45deg);
+  background:#fff;
+  color:#17213a;
+}
+
+@media(max-width:900px){
+  .home-segment-mosaic{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home-segment-tile,
+  .home-segment-tile.tile-1,
+  .home-segment-tile.tile-2,
+  .home-segment-tile.tile-3,
+  .home-segment-tile.tile-4,
+  .home-segment-tile.tile-5,
+  .home-segment-tile.tile-6{
+    grid-column:span 1;
+    min-height:300px;
+  }
+}
+@media(max-width:620px){
+  .home-segment-mosaic{grid-template-columns:1fr}
+  .home-segment-tile,
+  .home-segment-tile.tile-1,
+  .home-segment-tile.tile-2,
+  .home-segment-tile.tile-3,
+  .home-segment-tile.tile-4,
+  .home-segment-tile.tile-5,
+  .home-segment-tile.tile-6{
+    min-height:280px;
+  }
+  .home-segment-content{padding:19px}
+  .home-segment-content h3{font-size:28px}
+}
