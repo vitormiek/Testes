@@ -176,51 +176,43 @@ export default function Home() {
               <div className="journey-track" aria-hidden="true"><span></span></div>
 
               <article className="journey-step step-discovery">
-                <div className="journey-node"><span>01</span><i>◎</i></div>
+                <div className="journey-node"><span>01</span></div>
                 <div className="journey-copy">
                   <small>Descoberta</small>
                   <h3>Entendemos</h3>
                   <p>Negócio, público, oferta, jornada e os pontos que precisam evoluir.</p>
                 </div>
-                <div className="journey-visual visual-discovery">
-                  <span></span><span></span><span></span>
-                </div>
+
               </article>
 
               <article className="journey-step step-build">
-                <div className="journey-node"><span>02</span><i>✦</i></div>
+                <div className="journey-node"><span>02</span></div>
                 <div className="journey-copy">
                   <small>Construção</small>
                   <h3>Construímos</h3>
                   <p>Conteúdo, experiência, tecnologia e conexões entram em uma mesma arquitetura.</p>
                 </div>
-                <div className="journey-visual visual-build">
-                  <b></b><b></b><b></b>
-                </div>
+
               </article>
 
               <article className="journey-step step-launch">
-                <div className="journey-node"><span>03</span><i>↗</i></div>
+                <div className="journey-node"><span>03</span></div>
                 <div className="journey-copy">
                   <small>Operação</small>
                   <h3>Colocamos para operar</h3>
                   <p>Publicação, mensuração e caminhos de conversão passam a funcionar juntos.</p>
                 </div>
-                <div className="journey-visual visual-launch">
-                  <span></span><div></div>
-                </div>
+
               </article>
 
               <article className="journey-step step-growth">
-                <div className="journey-node"><span>04</span><i>↻</i></div>
+                <div className="journey-node"><span>04</span></div>
                 <div className="journey-copy">
                   <small>Evolução contínua</small>
                   <h3>Evoluímos</h3>
                   <p>Dados e novas necessidades alimentam o próximo ciclo sem reconstruir tudo do zero.</p>
                 </div>
-                <div className="journey-visual visual-growth">
-                  <i></i><i></i><i></i><i></i>
-                </div>
+
               </article>
             </div>
           </div>
