@@ -4,6 +4,7 @@ type StackTool = {
   name: string;
   icon?: string;
   fallback: string;
+  wide?: boolean;
 };
 
 const si = (slug: string) =>
@@ -17,7 +18,7 @@ const tools: StackTool[] = [
   /* Switched away from cdn.simpleicons.org for the two marks that were
      returning broken images in production. */
   { name: "Codex", icon: si("openai"), fallback: "✣" },
-  { name: "ActiveCampaign", icon: si("activecampaign"), fallback: "AC" },
+  { name: "ActiveCampaign", icon: "/logos/stack/activecampaign.svg", fallback: "AC" },
 
   { name: "Google Analytics", icon: "https://cdn.simpleicons.org/googleanalytics/747E8E", fallback: "GA" },
   { name: "Meta", icon: "https://cdn.simpleicons.org/meta/747E8E", fallback: "M" },
@@ -25,20 +26,20 @@ const tools: StackTool[] = [
   { name: "n8n", icon: "https://cdn.simpleicons.org/n8n/747E8E", fallback: "n8n" },
   { name: "Google", icon: "https://cdn.simpleicons.org/google/747E8E", fallback: "G" },
 
-  { name: "RD Station", icon: si("rdstation"), fallback: "RD" },
+  { name: "RD Station", icon: "/logos/stack/rd-station.svg", fallback: "RD" },
   { name: "Mailchimp", icon: si("mailchimp"), fallback: "M" },
-  { name: "Manychat", icon: si("manychat"), fallback: "MC" },
+  { name: "Manychat", icon: "/logos/stack/manychat.svg", fallback: "MC", wide: true },
   { name: "HubSpot", icon: si("hubspot"), fallback: "HS" },
 
   /* Reportei does not have a dependable public icon endpoint in the stack,
      so the card uses a neutral brand monogram instead of risking a broken mark. */
-  { name: "Reportei", fallback: "R" }
+  { name: "Reportei", icon: "https://images.mindcloud.co/apps/icons/reportei_1774885696716.png", fallback: "R" }
 ];
 
-function ToolCard({ name, icon, fallback }: StackTool) {
+function ToolCard({ name, icon, fallback, wide }: StackTool) {
   return (
     <div className="stack-logo-card">
-      <span className={"stack-logo-mark" + (icon ? "" : " fallback")}>
+      <span className={"stack-logo-mark" + (icon ? "" : " fallback") + (wide ? " wide" : "")}>
         {icon && (
           <img
             src={icon}
