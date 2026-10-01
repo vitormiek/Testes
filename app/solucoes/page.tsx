@@ -2,6 +2,19 @@ import { MotionEffects } from "@/components/MotionEffects";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
+const demoClients = [
+  { name: "Google", icon: "https://cdn.simpleicons.org/google/747E8E" },
+  { name: "Microsoft", icon: "https://cdn.simpleicons.org/microsoft/747E8E" },
+  { name: "Amazon", icon: "https://cdn.simpleicons.org/amazon/747E8E" },
+  { name: "Meta", icon: "https://cdn.simpleicons.org/meta/747E8E" },
+  { name: "Apple", icon: "https://cdn.simpleicons.org/apple/747E8E" },
+  { name: "NVIDIA", icon: "https://cdn.simpleicons.org/nvidia/747E8E" },
+  { name: "Adobe", icon: "https://cdn.simpleicons.org/adobe/747E8E" },
+  { name: "Salesforce", icon: "https://cdn.simpleicons.org/salesforce/747E8E" },
+  { name: "IBM", icon: "https://cdn.simpleicons.org/ibm/747E8E" },
+  { name: "Spotify", icon: "https://cdn.simpleicons.org/spotify/747E8E" }
+];
+
 export default function SolucoesPage(){
   return <>
     <MotionEffects/><SiteNav/>
@@ -10,7 +23,7 @@ export default function SolucoesPage(){
         <div className="container solutions-hero-grid">
           <div>
             <span className="eyebrow">Soluções Vimi</span>
-            <h1>Uma operação web que cresce junto com o negócio.</h1>
+            <h1>Operação web que cresce junto com o negócio.</h1>
             <p>Da presença digital à conversão, conectamos criação, tecnologia, dados e evolução contínua em uma experiência única.</p>
             <div className="hero-actions">
               <a className="pill primary" href="/#diagnostico">Conte seu cenário <span>↗</span></a>
@@ -21,8 +34,8 @@ export default function SolucoesPage(){
           <div className="solutions-orbit" aria-hidden="true">
             <div className="solutions-orbit-core"><span>vimi</span><small>web growth</small></div>
             <span className="orbit-chip chip-web">Web</span>
-            <span className="orbit-chip chip-connect">Connect</span>
-            <span className="orbit-chip chip-care">Care</span>
+            <span className="orbit-chip chip-connect">Marketing</span>
+            <span className="orbit-chip chip-care">Vendas</span>
             <span className="orbit-chip chip-growth">Growth</span>
             <i className="orbit-ring ring-a"></i>
             <i className="orbit-ring ring-b"></i>
@@ -40,8 +53,6 @@ export default function SolucoesPage(){
           <div className="solution-story">
             <article className="solution-story-row">
               <div className="solution-story-copy">
-                <span className="solution-index">01</span>
-                <span className="solution-label">Vimi Web</span>
                 <h2>Presença digital que representa o tamanho do seu negócio.</h2>
                 <p>Sites institucionais, landing pages, e-commerces e experiências digitais com foco em autoridade, clareza e conversão.</p>
                 <ul><li>Sites institucionais</li><li>Landing pages</li><li>E-commerce</li><li>Experiências de campanha</li></ul>
@@ -59,54 +70,151 @@ export default function SolucoesPage(){
 
             <article className="solution-story-row reverse">
               <div className="solution-story-copy">
-                <span className="solution-index">02</span>
-                <span className="solution-label">Vimi Connect</span>
                 <h2>Seu site deixa de trabalhar sozinho.</h2>
                 <p>Conectamos formulários, CRM, WhatsApp, dados e automações para preservar contexto e transformar interações em oportunidades.</p>
                 <ul><li>CRM</li><li>WhatsApp</li><li>Formulários</li><li>Automações</li></ul>
               </div>
-              <div className="solution-illustration connect-illustration" aria-hidden="true">
-                <div className="connect-core">vimi</div>
-                <span className="connect-node n1">CRM</span>
-                <span className="connect-node n2">WA</span>
-                <span className="connect-node n3">Data</span>
-                <span className="connect-node n4">Flow</span>
-                <svg viewBox="0 0 100 100"><line x1="50" y1="50" x2="18" y2="22"/><line x1="50" y1="50" x2="82" y2="22"/><line x1="50" y1="50" x2="18" y2="78"/><line x1="50" y1="50" x2="82" y2="78"/></svg>
+
+              <div className="solution-illustration connect-illustration connect-flow" aria-hidden="true">
+                <div className="connect-flow-grid"></div>
+                <div className="connect-flow-core">
+                  <span>vimi</span>
+                  <small>orquestra</small>
+                </div>
+
+                <div className="flow-card flow-site"><i>◫</i><span>Site</span><small>origem</small></div>
+                <div className="flow-card flow-crm"><i>◎</i><span>CRM</span><small>contexto</small></div>
+                <div className="flow-card flow-wa"><i>↗</i><span>WhatsApp</span><small>conversa</small></div>
+                <div className="flow-card flow-data"><i>⌁</i><span>Analytics</span><small>leitura</small></div>
+                <div className="flow-card flow-auto"><i>✦</i><span>Automação</span><small>ação</small></div>
+
+                <svg className="flow-paths" viewBox="0 0 100 100">
+                  <path d="M17 22 C34 22,38 41,50 50" />
+                  <path d="M83 20 C67 22,64 38,50 50" />
+                  <path d="M85 78 C68 74,66 61,50 50" />
+                  <path d="M16 79 C33 74,35 61,50 50" />
+                  <path d="M50 50 C50 68,50 74,50 88" />
+                </svg>
+
+                <span className="flow-pulse pulse-1"></span>
+                <span className="flow-pulse pulse-2"></span>
+                <span className="flow-pulse pulse-3"></span>
+                <span className="flow-pulse pulse-4"></span>
               </div>
             </article>
 
             <article className="solution-story-row">
               <div className="solution-story-copy">
-                <span className="solution-index">03</span>
-                <span className="solution-label">Vimi Care</span>
                 <h2>O site continua vivo depois do lançamento.</h2>
                 <p>Conteúdo, hospedagem, manutenção e atualizações entram em uma rotina contínua, sem transformar cada ajuste em um novo projeto.</p>
                 <ul><li>Hospedagem</li><li>Manutenção</li><li>Conteúdo</li><li>Atualizações</li></ul>
               </div>
-              <div className="solution-illustration care-illustration" aria-hidden="true">
-                <div className="care-panel">
-                  <div><span></span><b>Disponibilidade</b><strong>99.99%</strong></div>
-                  <div><span></span><b>Performance</b><strong>92</strong></div>
-                  <div><span></span><b>Atualizações</b><strong>live</strong></div>
+
+              <div className="solution-illustration care-illustration checklist-illustration" aria-hidden="true">
+                <div className="checklist-window">
+                  <div className="checklist-head">
+                    <div><span></span><span></span><span></span></div>
+                    <small>rotina contínua</small>
+                  </div>
+
+                  <div className="check-row row-1">
+                    <span className="fake-checkbox">✓</span>
+                    <div><b>Conteúdo publicado</b><small>Atualização concluída</small></div>
+                    <i>pronto</i>
+                  </div>
+                  <div className="check-row row-2">
+                    <span className="fake-checkbox">✓</span>
+                    <div><b>SEO técnico atualizado</b><small>Estrutura revisada</small></div>
+                    <i>pronto</i>
+                  </div>
+                  <div className="check-row row-3">
+                    <span className="fake-checkbox">✓</span>
+                    <div><b>Integração com CRM ativa</b><small>Fluxo operacional</small></div>
+                    <i>pronto</i>
+                  </div>
+                  <div className="check-row row-4">
+                    <span className="fake-checkbox">✓</span>
+                    <div><b>Conversão validada</b><small>Jornada funcionando</small></div>
+                    <i>pronto</i>
+                  </div>
+
+                  <div className="fake-cursor">
+                    <svg viewBox="0 0 26 30"><path d="M3 2 22 16l-9 2 4 8-4 2-4-8-6 6Z"/></svg>
+                  </div>
+
+                  <div className="checklist-progress"><span></span></div>
                 </div>
-                <i className="care-pulse"></i>
               </div>
             </article>
 
             <article className="solution-story-row reverse">
               <div className="solution-story-copy">
-                <span className="solution-index">04</span>
-                <span className="solution-label">Vimi Growth</span>
                 <h2>Melhorias guiadas pelo que realmente acontece.</h2>
                 <p>Performance, SEO, comportamento e conversão ajudam a identificar onde existe espaço real para crescer.</p>
                 <ul><li>Analytics</li><li>SEO</li><li>Conversão</li><li>Experimentação</li></ul>
               </div>
-              <div className="solution-illustration growth-illustration" aria-hidden="true">
-                <div className="growth-chart"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div className="growth-line"><span></span></div>
-                <div className="growth-metric"><small>Conversão</small><b>+28,4%</b></div>
+
+              <div className="solution-illustration growth-illustration performance-dashboard" aria-hidden="true">
+                <div className="performance-shell">
+                  <div className="performance-head">
+                    <div>
+                      <small>Performance</small>
+                      <b>Visão de crescimento</b>
+                    </div>
+                    <span>Últimos 30 dias</span>
+                  </div>
+
+                  <div className="performance-kpis">
+                    <div><small>Conversão</small><b>+28,4%</b><i>↑ 6,2%</i></div>
+                    <div><small>Leads</small><b>1.284</b><i>↑ 19,2%</i></div>
+                    <div><small>Engajamento</small><b>64,8%</b><i>↑ 14,8%</i></div>
+                  </div>
+
+                  <div className="performance-chart">
+                    <div className="chart-grid-lines"><i></i><i></i><i></i><i></i></div>
+                    <div className="chart-bars">
+                      <span style={{height:"34%"}}></span>
+                      <span style={{height:"48%"}}></span>
+                      <span style={{height:"42%"}}></span>
+                      <span style={{height:"63%"}}></span>
+                      <span style={{height:"71%"}}></span>
+                      <span style={{height:"86%"}}></span>
+                    </div>
+                    <svg viewBox="0 0 100 45" preserveAspectRatio="none">
+                      <path d="M0 36 C15 34,18 29,31 30 S50 22,60 23 S77 12,100 9" />
+                      <circle cx="100" cy="9" r="2" />
+                    </svg>
+                  </div>
+
+                  <div className="performance-foot">
+                    <span><i></i> Conversões</span>
+                    <span><i></i> Tendência</span>
+                    <b>Atualizado agora</b>
+                  </div>
+                </div>
               </div>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="section client-proof-section">
+        <div className="container">
+          <div className="client-proof-head">
+            <div>
+              <span className="eyebrow dark">Prova social</span>
+              <h2>Marcas que inspiram o padrão de excelência da Vimi.</h2>
+            </div>
+            <p>Esta seção é uma simulação visual da versão experimental do projeto. Os logos abaixo são demonstrativos e não representam clientes reais da Vimi.</p>
+          </div>
+
+          <div className="client-logo-grid">
+            {demoClients.map((client)=>(
+              <div className="client-logo-card" key={client.name}>
+                <img src={client.icon} alt="" loading="lazy" />
+                <span>{client.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
