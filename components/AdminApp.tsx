@@ -45,6 +45,49 @@ type EditorDraft = {
   published_at: string;
 };
 
+type BlogBanner = {
+  id: string;
+  internal_name: string;
+  label: string | null;
+  title: string;
+  body: string | null;
+  button_text: string;
+  button_url: string;
+  theme: "dark" | "blue" | "violet" | "light";
+  slot: number;
+  category: string | null;
+  active: boolean;
+  starts_at: string | null;
+  ends_at: string | null;
+  sort_order: number;
+};
+
+type BannerDraft = {
+  internal_name: string;
+  label: string;
+  title: string;
+  body: string;
+  button_text: string;
+  button_url: string;
+  theme: "dark" | "blue" | "violet" | "light";
+  slot: number;
+  category: string;
+  active: boolean;
+};
+
+const EMPTY_BANNER: BannerDraft = {
+  internal_name: "",
+  label: "",
+  title: "",
+  body: "",
+  button_text: "Saiba mais",
+  button_url: "/#diagnostico",
+  theme: "dark",
+  slot: 3,
+  category: "",
+  active: true
+};
+
 const EMPTY_DRAFT: EditorDraft = {
   title: "",
   slug: "",
@@ -104,8 +147,11 @@ export function AdminApp() {
   const [client, setClient] = useState<SupabaseClient | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [allowed, setAllowed] = useState<boolean | null>(null);
-  const [view, setView] = useState<"dashboard" | "articles" | "editor">("dashboard");
+  const [view, setView] = useState<"dashboard" | "articles" | "editor" | "banners">("dashboard");
   const [posts, setPosts] = useState<Post[]>([]);
+  const [banners, setBanners] = useState<BlogBanner[]>([]);
+  const [bannerDraft, setBannerDraft] = useState<BannerDraft>(EMPTY_BANNER);
+  const [bannerEditingId, setBannerEditingId] = useState<string | null>(null);
   const [draft, setDraft] = useState<EditorDraft>(EMPTY_DRAFT);
   const [slugTouched, setSlugTouched] = useState(false);
   const [search, setSearch] = useState("");
@@ -130,6 +176,21 @@ export function AdminApp() {
     setPosts((data as Post[]) || []);
   }
 
+  async function loadBanners(nextClient = client) {
+    if (!nextClient) return;
+    const { data, error } = await nextClient
+      .from("vimi_blog_banners")
+      .select("*")
+      .order("slot", { ascending: true })
+      .order("sort_order", { ascending: true });
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+    setBanners((data as BlogBanner[]) || []);
+  }
+
   async function verify(nextClient: SupabaseClient, nextSession: Session | null) {
     setSession(nextSession);
     if (!nextSession) {
@@ -145,7 +206,7 @@ export function AdminApp() {
 
     const ok = Boolean(data);
     setAllowed(ok);
-    if (ok) await loadPosts(nextClient);
+    if (ok) { await Promise.all([loadPosts(nextClient), loadBanners(nextClient)]); }
   }
 
   useEffect(() => {
@@ -303,6 +364,83 @@ export function AdminApp() {
     }
   }
 
+  function newBanner() {
+    setBannerEditingId(null);
+    setBannerDraft(EMPTY_BANNER);
+    setMessage("");
+    setView("banners");
+  }
+
+  function editBanner(banner: BlogBanner) {
+    setBannerEditingId(banner.id);
+    setBannerDraft({
+      internal_name: banner.internal_name,
+      label: banner.label || "",
+      title: banner.title,
+      body: banner.body || "",
+      button_text: banner.button_text,
+      button_url: banner.button_url,
+      theme: banner.theme,
+      slot: banner.slot,
+      category: banner.category || "",
+      active: banner.active
+    });
+    setView("banners");
+  }
+
+  async function saveBanner() {
+    if (!client) return;
+    if (!bannerDraft.internal_name.trim() || !bannerDraft.title.trim() || !bannerDraft.button_text.trim() || !bannerDraft.button_url.trim()) {
+      setMessage("Nome interno, título, texto do botão e destino são obrigatórios.");
+      return;
+    }
+
+    setSaving(true);
+    const payload = {
+      internal_name: bannerDraft.internal_name.trim(),
+      label: bannerDraft.label.trim() || null,
+      title: bannerDraft.title.trim(),
+      body: bannerDraft.body.trim() || null,
+      button_text: bannerDraft.button_text.trim(),
+      button_url: bannerDraft.button_url.trim(),
+      theme: bannerDraft.theme,
+      slot: Number(bannerDraft.slot) || 0,
+      category: bannerDraft.category.trim() || null,
+      active: bannerDraft.active
+    };
+
+    const result = bannerEditingId
+      ? await client.from("vimi_blog_banners").update(payload).eq("id", bannerEditingId)
+      : await client.from("vimi_blog_banners").insert(payload);
+
+    if (result.error) {
+      setMessage(result.error.message);
+      setSaving(false);
+      return;
+    }
+
+    await loadBanners(client);
+    setBannerEditingId(null);
+    setBannerDraft(EMPTY_BANNER);
+    setMessage("Banner salvo.");
+    setSaving(false);
+  }
+
+  async function deleteBanner(banner: BlogBanner) {
+    if (!client) return;
+    if (!window.confirm('Excluir o banner "' + banner.internal_name + '"?')) return;
+    const { error } = await client.from("vimi_blog_banners").delete().eq("id", banner.id);
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+    await loadBanners(client);
+    if (bannerEditingId === banner.id) {
+      setBannerEditingId(null);
+      setBannerDraft(EMPTY_BANNER);
+    }
+  }
+
   async function uploadCover(event: ChangeEvent<HTMLInputElement>) {
     if (!client || !event.target.files?.[0]) return;
     const file = event.target.files[0];
@@ -381,6 +519,7 @@ export function AdminApp() {
         <button className={view === "dashboard" ? "active" : ""} onClick={() => setView("dashboard")}><span>◫</span> Visão geral</button>
         <button className={view === "articles" ? "active" : ""} onClick={() => setView("articles")}><span>≡</span> Artigos <b>{posts.length}</b></button>
         <button className={view === "editor" && !draft.id ? "active" : ""} onClick={openNewPost}><span>＋</span> Novo artigo</button>
+        <button className={view === "banners" ? "active" : ""} onClick={() => setView("banners")}><span>▰</span> Banners <b>{banners.length}</b></button>
       </div>
       <div className="cms-sidebar-bottom">
         <a href="/insights" target="_blank"><span>↗</span> Abrir Vimi Insights</a>
@@ -392,10 +531,11 @@ export function AdminApp() {
       <header className="cms-topbar">
         <div>
           <span className="cms-overline">Vimi Insights</span>
-          <h1>{view === "dashboard" ? "Visão geral" : view === "articles" ? "Artigos" : draft.id ? "Editar artigo" : "Novo artigo"}</h1>
+          <h1>{view === "dashboard" ? "Visão geral" : view === "articles" ? "Artigos" : view === "banners" ? "Banners do blog" : draft.id ? "Editar artigo" : "Novo artigo"}</h1>
         </div>
         <div className="cms-top-actions">
-          {view !== "editor" && <button className="cms-primary-button compact" onClick={openNewPost}>Novo artigo <span>＋</span></button>}
+          {view !== "editor" && view !== "banners" && <button className="cms-primary-button compact" onClick={openNewPost}>Novo artigo <span>＋</span></button>}
+          {view === "banners" && <button className="cms-primary-button compact" onClick={newBanner}>Novo banner <span>＋</span></button>}
           <a className="cms-secondary-button" href="/" target="_blank">Ver site ↗</a>
         </div>
       </header>
@@ -461,6 +601,55 @@ export function AdminApp() {
           {!filteredPosts.length && <div className="cms-empty large">Nenhum conteúdo corresponde aos filtros.</div>}
         </div>
       </section>}
+
+      {view === "banners" && <div className="cms-banner-manager">
+        <section className="cms-panel cms-banner-list-panel">
+          <div className="cms-panel-head">
+            <div><span className="cms-overline dark">Conversão editorial</span><h2>Banners ativos no feed</h2></div>
+            <small className="cms-helper">A posição indica depois de qual matéria o banner aparece.</small>
+          </div>
+          <div className="cms-banner-list">
+            {banners.map((banner)=><div className="cms-banner-row" key={banner.id}>
+              <span className={"cms-banner-swatch theme-"+banner.theme}></span>
+              <div>
+                <b>{banner.internal_name}</b>
+                <small>{banner.label || "Sem label"} · após matéria {banner.slot}{banner.category ? " · " + banner.category : " · todas as categorias"}</small>
+              </div>
+              <span className={banner.active ? "cms-banner-state active" : "cms-banner-state"}>{banner.active ? "Ativo" : "Inativo"}</span>
+              <div className="cms-row-actions">
+                <button onClick={()=>editBanner(banner)}>Editar</button>
+                <button className="danger" onClick={()=>deleteBanner(banner)}>Excluir</button>
+              </div>
+            </div>)}
+            {!banners.length && <div className="cms-empty">Nenhum banner configurado.</div>}
+          </div>
+        </section>
+
+        <section className="cms-panel cms-banner-editor">
+          <span className="cms-overline dark">{bannerEditingId ? "Editar banner" : "Novo banner"}</span>
+          <h2>{bannerEditingId ? "Ajustar CTA" : "Criar CTA editorial"}</h2>
+          <div className="cms-banner-form-grid">
+            <label className="cms-field"><span>Nome interno</span><input value={bannerDraft.internal_name} onChange={(e)=>setBannerDraft({...bannerDraft,internal_name:e.target.value})} placeholder="Ex.: CTA Diagnóstico" /></label>
+            <label className="cms-field"><span>Label</span><input value={bannerDraft.label} onChange={(e)=>setBannerDraft({...bannerDraft,label:e.target.value})} placeholder="Ex.: Vimi Growth" /></label>
+            <label className="cms-field full"><span>Título</span><input value={bannerDraft.title} onChange={(e)=>setBannerDraft({...bannerDraft,title:e.target.value})} /></label>
+            <label className="cms-field full"><span>Texto de apoio</span><textarea rows={3} value={bannerDraft.body} onChange={(e)=>setBannerDraft({...bannerDraft,body:e.target.value})} /></label>
+            <label className="cms-field"><span>Texto do botão</span><input value={bannerDraft.button_text} onChange={(e)=>setBannerDraft({...bannerDraft,button_text:e.target.value})} /></label>
+            <label className="cms-field"><span>Destino</span><input value={bannerDraft.button_url} onChange={(e)=>setBannerDraft({...bannerDraft,button_url:e.target.value})} /></label>
+            <label className="cms-field"><span>Tema visual</span><select value={bannerDraft.theme} onChange={(e)=>setBannerDraft({...bannerDraft,theme:e.target.value as BannerDraft["theme"]})}><option value="dark">Dark</option><option value="blue">Azul</option><option value="violet">Violeta</option><option value="light">Claro</option></select></label>
+            <label className="cms-field"><span>Após a matéria nº</span><input type="number" min="0" max="50" value={bannerDraft.slot} onChange={(e)=>setBannerDraft({...bannerDraft,slot:Number(e.target.value)})} /></label>
+            <label className="cms-field"><span>Categoria <small>opcional</small></span><input list="cms-banner-categories" value={bannerDraft.category} onChange={(e)=>setBannerDraft({...bannerDraft,category:e.target.value})} placeholder="Todas" /><datalist id="cms-banner-categories">{categories.map((category)=><option key={category} value={category}/>)}</datalist></label>
+            <label className="cms-check cms-banner-check"><input type="checkbox" checked={bannerDraft.active} onChange={(e)=>setBannerDraft({...bannerDraft,active:e.target.checked})}/><span><b>Banner ativo</b><small>Quando inativo, não aparece no blog.</small></span></label>
+          </div>
+          <div className={"cms-banner-preview theme-"+bannerDraft.theme}>
+            <div><span>{bannerDraft.label || "Vimi"}</span><h3>{bannerDraft.title || "Título do CTA"}</h3><p>{bannerDraft.body || "Texto de apoio do banner."}</p></div>
+            <b>{bannerDraft.button_text || "Saiba mais"} ↗</b>
+          </div>
+          <div className="cms-banner-actions">
+            {bannerEditingId && <button className="cms-secondary-button" onClick={()=>{setBannerEditingId(null);setBannerDraft(EMPTY_BANNER)}}>Cancelar edição</button>}
+            <button className="cms-primary-button compact" disabled={saving} onClick={saveBanner}>{saving ? "Salvando…" : "Salvar banner"} <span>↗</span></button>
+          </div>
+        </section>
+      </div>}
 
       {view === "editor" && <div className="cms-editor-layout">
         <section className="cms-editor-main">
