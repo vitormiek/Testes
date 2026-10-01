@@ -30,7 +30,7 @@ export function BlogPreview() {
           <div className="meta">{post.category}</div>
           <h3>{post.title}</h3>
           <p>{post.excerpt}</p>
-          <a href={"/insights#" + post.slug}>Ler análise <b>↗</b></a>
+          <a href={"/insights/" + post.slug}>Ler análise <b>↗</b></a>
         </article>
       ))}
     </div>
