@@ -39,7 +39,7 @@ export default async function InsightsPage(){
 
         <section className="section blog-index-section">
           <div className="container">
-            {featured && <a id={featured.slug} className="blog-featured" href={"#"+featured.slug}>
+            {featured && <a id={featured.slug} className="blog-featured" href={"/insights/artigo?slug="+featured.slug}>
               <div className="blog-featured-art">
                 {featured.cover_image_url ? <img src={featured.cover_image_url} alt="" /> : <div className="blog-art-fallback"><span>vimi</span></div>}
               </div>
@@ -53,7 +53,7 @@ export default async function InsightsPage(){
             </a>}
 
             <div className="blog-grid">
-              {remaining.map((post)=><a id={post.slug} className="blog-card" href={"#"+post.slug} key={post.id}>
+              {remaining.map((post)=><a id={post.slug} className="blog-card" href={"/insights/artigo?slug="+post.slug} key={post.id}>
                 <div className="blog-card-art">{post.cover_image_url ? <img src={post.cover_image_url} alt="" /> : <div className="blog-art-fallback small"><span>vimi</span></div>}</div>
                 <span className="meta">{post.category}</span>
                 <h2>{post.title}</h2>
