@@ -1,7 +1,4 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { getPublishedPost } from "@/lib/vimi-api";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -16,23 +13,6 @@ function dateLabel(value:string|null){
 function readingTime(content:string){
   const words=content.trim()?content.trim().split(/\s+/).length:0;
   return Math.max(1,Math.ceil(words/220));
-}
-
-export async function generateMetadata({params}:Props):Promise<Metadata>{
-  const {slug}=await params;
-  const post=await getPublishedPost(slug);
-  if(!post) return {title:"Conteúdo não encontrado | Vimi"};
-  return {
-    title: post.seo_title || post.title,
-    description: post.seo_description || post.excerpt || undefined,
-    robots:{index:false,follow:false},
-    openGraph:{
-      title:post.seo_title || post.title,
-      description:post.seo_description || post.excerpt || undefined,
-      type:"article",
-      images:post.cover_image_url?[post.cover_image_url]:undefined
-    }
-  };
 }
 
 export default async function ArticlePage({params}:Props){
@@ -55,7 +35,7 @@ export default async function ArticlePage({params}:Props){
       </header>
 
       <section className="article-body">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content || ""}</ReactMarkdown>
+        <div className="article-plain-content">{post.content || ""}</div>
       </section>
 
       <section className="article-end">
