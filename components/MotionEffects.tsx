@@ -13,6 +13,8 @@ const TARGETS = [
   ".segment-icon-card",
   ".connection-node",
   ".connection-hub",
+  ".ecosystem-stack-head",
+  ".ecosystem-stack-foot",
   ".steps article",
   ".journey-step",
   ".solution-story-row",
