@@ -1,8 +1,8 @@
-import { getPublishedPosts } from "@/lib/vimi-api";
+import { getBlogBanners, getPublishedPosts } from "@/lib/vimi-api";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { MotionEffects } from "@/components/MotionEffects";
-import { InsightsFeed, type InsightPost } from "@/components/InsightsFeed";
+import { InsightsFeed, type BlogBanner, type InsightPost } from "@/components/InsightsFeed";
 
 function dateLabel(value:string|null){
   if(!value) return "";
@@ -17,9 +17,11 @@ function NewsArt({post,small=false}:{post:InsightPost;small?:boolean}){
 
 export default async function InsightsPage(){
   let posts: InsightPost[] = [];
+  let banners: BlogBanner[] = [];
   try {
-    const data = await getPublishedPosts();
-    posts = data.posts || [];
+    const [postData,bannerData] = await Promise.all([getPublishedPosts(),getBlogBanners()]);
+    posts = postData.posts || [];
+    banners = bannerData.banners || [];
   } catch {}
 
   const featured=posts.find((post)=>post.is_featured) || posts[0];
@@ -68,8 +70,7 @@ export default async function InsightsPage(){
               </a>
 
               <div className="newsroom-side">
-                {side.map((post,index)=><a className="newsroom-side-story" id={post.slug} href={"#feed-"+post.slug} key={post.id}>
-                  <NewsArt post={post} small/>
+                {side.map((post,index)=><a className="newsroom-side-story no-thumb" id={post.slug} href={"#feed-"+post.slug} key={post.id}>
                   <div>
                     <span className="news-category">{post.category}</span>
                     <h3>{post.title}</h3>
@@ -89,7 +90,7 @@ export default async function InsightsPage(){
         </section>
 
         <div id="feed"></div>
-        <InsightsFeed posts={posts}/>
+        <InsightsFeed posts={posts} banners={banners}/>
 
         <section className="newsroom-newsletter">
           <div className="container">
