@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./motion.css";
 import "./conversion.css";
+import "./blog.css";
 
 export const metadata: Metadata = {
   title: "Vimi — Seu site. Sempre evoluindo.",
