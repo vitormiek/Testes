@@ -36,8 +36,11 @@ function dateLabel(value:string|null){
 
 function ArticleCard({post}:{post:InsightPost}){
   return <a className="news-feed-card" href={"#"+post.slug} id={"feed-"+post.slug}>
-    <div className="news-feed-copy">
+    <div className="news-feed-art">
+      {post.cover_image_url ? <img src={post.cover_image_url} alt="" /> : <div className="news-art-fallback"><span>vimi</span><i></i></div>}
       <span className="news-category">{post.category}</span>
+    </div>
+    <div className="news-feed-copy">
       <h3>{post.title}</h3>
       <p>{post.excerpt}</p>
       <div className="news-feed-meta"><span>{post.author_name}</span><span>{dateLabel(post.published_at)}</span></div>
